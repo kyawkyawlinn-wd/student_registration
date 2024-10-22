@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Student Registration</title>
-  <link rel="stylesheet" href="./css/bootstrap.css">
+  <!-- <link rel="stylesheet" href="./css/bootstrap.css"> -->
+  <link rel="stylesheet" href="./npm/node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
   <nav class="navbar navbar-expand bg-dark navbar-dark">
