@@ -1,3 +1,4 @@
+<?php require_once ("./stroage/student.php") ?>
 <?php 
 $e_roll = $e_name = $e_age = $e_email = '';
 $roll = $name = $age = $email = '';
@@ -38,7 +39,13 @@ if(isset($_POST['roll'])) {
   }
   if ($e_name === '' && $e_age === '' && $e_email === '' && $e_roll === '') {
     $student = ["roll" => $roll,"name" => $name,"email" => $email,"age" => $age];
-    setcookie("student", json_encode($student), time() + 3600 * 24 * 14, '/');
+    
+    //session
+    array_push($student_list, $student);
+    $_SESSION['student_list'] = $student_list;
+
+    //cookie
+    // setcookie("student", json_encode($student), time() + 3600 * 24 * 14, '/');
     $success = true;
 }
 } ?>
