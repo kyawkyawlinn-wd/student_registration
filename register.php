@@ -1,19 +1,46 @@
 <?php 
-$e_roll = $e_name = $e_age = '';
+$e_roll = $e_name = $e_age = $e_email = '';
+$roll = $name = $age = $email = '';
+$success = false;
 if(isset($_POST['roll'])) {
   $roll = $_POST["roll"];
   $name = $_POST["name"];
   $age = $_POST["age"];
+  $email = $_POST["email"];
 
   if($roll === '') {
     $e_roll = "Roll must be fill";
+  } else {
+    if (!preg_match("/^SG-\d{3}$/", $roll)) {
+      $e_roll = "Invalid roll number format";
+    }
   }
   if($name === '') {
     $e_name = "Name must be fill";
+  } else {
+    if (!preg_match("/^[a-zA-Z\s]+$/", $name)) {
+      $e_ = "Name must be only string";
+    }
   }
   if($age === '') {
     $e_age = "Age must be fill";
+  } else {
+    if (!preg_match("/^\d+$/", $age)) {
+      $e_age = "Age must be only number";
+    }
   }
+  if($email === '') {
+    $e_email = "Email not must be blank!";
+  } else {
+      if(!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email)) {
+        $e_email = "Email uncorrect format";
+      }
+  }
+  if ($e_name === '' && $e_age === '' && $e_email === '' && $e_roll === '') {
+    $student = ["roll" => $roll,"name" => $name,"email" => $email,"age" => $age];
+    setcookie("student", json_encode($student), time() + 3600 * 24 * 14, '/');
+    $success = true;
+}
 } ?>
 <?php include_once("./layout/header.php") ?>
 
@@ -25,8 +52,8 @@ if(isset($_POST['roll'])) {
       <div class="col-4">
         <div class="card" style="height: 500px;">
           <div class="card-body">
-              <?php if(isset($_REQUEST['success'])) { ?>
-                  <div class="alert alert-success"><?= $_REQUEST['success'] ?></div>
+              <?php if($success) { ?>
+                  <div class="alert alert-success">Student save!</div>
              <?php } ?>
              <form action="" method="post">
               <div class="form-group my-2">
@@ -43,6 +70,11 @@ if(isset($_POST['roll'])) {
                 <label for="age" class="form-label">Age</label>
                 <input type="text" name="age" id="age" class="form-control">
                 <div class="text-danger"><?= $e_age ?></div>
+              </div>
+              <div class="form-group my-2">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" class="form-control">
+                <div class="text-danger"><?= $e_email ?></div>
               </div>
               <button class="btn btn-primary mt-4">Submit</button>
              </form>
